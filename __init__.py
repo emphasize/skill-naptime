@@ -24,6 +24,7 @@ import time
 
 class NapTimeSkill(MycroftSkill):
     """Skill to handle mycroft speech client listener sleeping."""
+
     def initialize(self):
         self.started_by_skill = False
         self.sleeping = False
@@ -69,6 +70,7 @@ class NapTimeSkill(MycroftSkill):
         elif self.config_core['confirm_listening']:
             self.disable_confirm_listening()
 
+    @intent_handler(IntentBuilder("wakeUpIntent").require("WakeCommand"))
     def handle_awoken(self, message):
         """Handler for the mycroft.awoken message
 
@@ -122,6 +124,7 @@ class NapTimeSkill(MycroftSkill):
         self.bus.emit(msg)
         self.disabled_confirm_listening = False
         self.log.info('Enabled chirp again')
+
 
 def create_skill():
     return NapTimeSkill()
