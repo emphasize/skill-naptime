@@ -29,7 +29,6 @@ class NapTimeSkill(MycroftSkill):
         self.started_by_skill = False
         self.sleeping = False
         self.old_brightness = 30
-        self.add_event('mycroft.awoken', self.handle_awoken)
         self.wake_word = Configuration.get()['listener']['wake_word']
         self.disabled_confirm_listening = False
 
@@ -49,7 +48,6 @@ class NapTimeSkill(MycroftSkill):
         else:
             self.speak_dialog('going.to.sleep.short')
 
-        self.bus.emit(Message('recognizer_loop:sleep'))
         self.sleeping = True
         self.started_by_skill = True
         wait_while_speaking()
